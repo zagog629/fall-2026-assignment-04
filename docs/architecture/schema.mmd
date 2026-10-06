@@ -1,0 +1,45 @@
+erDiagram
+    %% existing: created by 001_initial_schema.ts
+    USERS {
+        serial id PK
+        varchar(255) email UK
+        varchar(255) name "nullable"
+        timestamp created_at "default now()"
+    }
+    BORROWERS {
+        serial id PK
+        integer user_id FK, UK
+        varchar(20) card_number UK
+    }
+    GENRES {
+        serial id PK
+        varchar(100) name UK
+    }
+    BOOKS {
+        serial id PK
+        varchar(255) title
+        varchar(20) isbn UK
+        integer genre_id FK
+        integer total_copies "default 1"
+    }
+    AUTHORS {
+        serial id PK
+        varchar(255) name
+    }
+    BOOK_AUTHORS {
+        integer book_id PK, FK
+        integer author_id PK, FK
+    }
+    LOANS {
+        serial id PK
+        integer book_id FK
+        integer borrower_id FK
+        timestamp loaned_at "default now()"
+        timestamp returned_at "nullable"
+    }
+    USERS ||--o| BORROWERS : "has profile"
+    GENRES ||--o{ BOOKS : "categorizes"
+    BOOKS ||--o{ BOOK_AUTHORS : "written by"
+    AUTHORS ||--o{ BOOK_AUTHORS : "writes"
+    BORROWERS ||--o{ LOANS : "borrows"
+    BOOKS ||--o{ LOANS : "is loaned in"
