@@ -1,19 +1,4 @@
 #!/usr/bin/env node
-/**
- * render_erd.js - validate a Mermaid ERD and compile it to SVG.
- *
- * Usage (run from the repository root):
- *   node .agent/skills/erd-generator/scripts/render_erd.js docs/architecture/schema.mmd
- *
- * Optional 2nd argument overrides the output path (default: docs/architecture/erd.svg).
- *
- * Exit codes / output:
- *   0  prints "SUCCESS"                 - SVG written to the output path
- *   1  prints "SYNTAX_ERROR:" + stderr  - Mermaid failed to compile (fix the .mmd and re-run)
- *   1  prints "ERROR:" + message        - bad usage (e.g. input file missing)
- *
- * Note: package.json sets "type": "module", so this file must use ESM imports.
- */
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
 import os from 'node:os';
